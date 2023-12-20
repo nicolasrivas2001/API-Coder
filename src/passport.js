@@ -64,10 +64,12 @@ passport.use("login", new LocalStrategy({usernameField:"email"}, async(email,pas
 passport.use("github", new GithubStrategy({
     clientID:"Iv1.c748f46a6f06769d",
     clientSecret: "d51347c54a2e0b3aa2b025ef296957770757c3b3",
-    callbackURL:"http://localhost:8088/api/sessions/callback"
+    callbackURL:"http://localhost:8080/api/sessions/callback"
 }, async(accessToke, refreshToken, profile, done) => {
     try{
+        console.log(profile)
         const userDB = await usersManager.findByEmail(profile._json.email)
+        console.log(userDB)
         if(userDB){
             if(userDB.isGithub){
                 return done(null,userDB)
@@ -76,9 +78,9 @@ passport.use("github", new GithubStrategy({
             }
         }
         const infoUser = {
-            firstName:profile._json.name.split(" ")[0],
-            lastName:profile._json.name.split(" ")[1],
-            email:"default@gmail.com",
+            first_name:profile._json.name.split(" ")[0],
+            last_name:profile._json.name.split(" ")[1],
+            email:profile._json.email,
             password:" ",
             isGithub: true
         }

@@ -49,12 +49,8 @@ app.use("/api/users", usersRouter);
 app.use("/api/sessions", sessionsRouter);
 
 
-
-
-
-
-const httpServer = app.listen(8088, () => {
-  console.log("Server is listening on port 8088");
+const httpServer = app.listen(8080, () => {
+  console.log("Server is listening on port 8080");
 });
 
 const socketServer = new Server(httpServer);
