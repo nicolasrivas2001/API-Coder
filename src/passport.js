@@ -19,24 +19,45 @@ passport.deserializeUser(async(id,done)=>{
     }
 })
 
-passport.use("signup", new LocalStrategy({ passReqToCallback: true, usernameField: "email" }, async (req, done) => {
-    const { first_name, last_name, email, password, rol } = req.body;
-    if (!first_name || !last_name || !email || !password) {
-      return done(null, false);
-    }
-    try {
-      const hashedPassword = await hashData(password);
-      const createdUser = await usersManager.createOne({
-        ...req.body,
-        password: hashedPassword,
-      });
-      return done(null, createdUser);
-    } catch (error) {
-      return done(error);
-    }
-  }));
 
-passport.use("login", new LocalStrategy({usernameField:"email"}, async(email,password,done)=>{
+
+
+
+passport.use(
+    "signup",
+    new LocalStrategy(
+      { passReqToCallback: true, usernameField: "email" },
+      async (req, res, password,  done) => {
+        const { first_name, last_name , email } = req.body;
+        if (!first_name || !last_name || !email || !password) {
+          return done(null, false);
+        }
+        try {
+            const user = await usersManager.findByEmail(email)
+            
+            if(!user){
+                if (email==="coder@admin.com"){
+                    const rol = "Admin"
+                }else{
+                    const rol = "User"
+                }
+                const hashedPassword = await hashData(password);
+                const createdUser = await usersManager.createOne({
+                ...req.body,
+                role:email==="coder@admin.com"?"Admin":"User",
+                password: hashedPassword,
+                });
+                return done(null, createdUser);
+            }
+            return done(null,false,{message:"Usuario existente"})
+        } catch (error) {
+          done(error);
+        }
+      }
+    )
+  );
+
+passport.use("login", new LocalStrategy({usernameField:"email"}, async (email,password,done)=> {
     if ( !email || !password) {
         done(null,false,{ message: "All fields are required" })
     }

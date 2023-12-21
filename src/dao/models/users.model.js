@@ -23,10 +23,12 @@ const usersSchema = new mongoose.Schema({
   },
   isGithub:{
     type: Boolean,
-    default: false
+    default: false,
+    required:false
   },
   cart: {
     type: [{ type: mongoose.SchemaTypes.ObjectId, ref: "carts" }],
+    required:false
   },
   role: {
     type: String
