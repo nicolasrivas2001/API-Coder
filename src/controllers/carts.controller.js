@@ -8,7 +8,6 @@ export const findAll = async(req,res)=>{
         const carts = await cartsService.getCarts()
         res.status(200).json({carts})
     } catch (error) {
-      console.log(error)
       return res.status(500).json({ error });
     }
 }
@@ -72,7 +71,6 @@ export const purchase = async (req,res) => {
     const cart = await cartsService.purchaseCart(cid,user);
     res.json({ cart });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ error });
   }
 }
@@ -82,8 +80,8 @@ export const deleteProductCart = async (req,res) => {
       const {cid,pid} = req.params
       const cart = await cartsService.deleteProductCart(cid,pid);
       res.json({ cart });
-    } catch (err){
-      return res.status(500).json({ error: err.message });
+    } catch (error){
+      return res.status(500).json({ error: error.message });
     }
 }
 
@@ -92,8 +90,8 @@ export const deleteCart = async (req,res) => {
       const {cid} = req.params
       const cart = await cartsService.deleteCart(cid);
       res.json({ cart });
-    } catch (err){
-      return res.status(500).json({ error: err.message });
+    } catch (error){
+      return res.status(500).json({ error: error.message });
     }
 }
 

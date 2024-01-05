@@ -1,3 +1,5 @@
+import CustomError from "../../errors/error.generator.js";
+import { ErrorsMessages } from "../../errors/errors.enum.js";
 import { productsModel } from "../models/products.model.js";
 
 export default class ProductsManager {
@@ -35,7 +37,11 @@ export default class ProductsManager {
 
   async findById(id) {
     const result = await productsModel.findById(id);
-    return result;
+    if(result){
+      return result;
+    } else{
+      CustomError.generateError(ErrorsMessages.PRODUCT_NOT_FOUNT,500,ErrorsMessages.PRODUCT_NOT_FOUNT)
+    }
   }
 
   async create(obj) {
@@ -45,12 +51,20 @@ export default class ProductsManager {
 
   async update(id, obj) {
     const result = await productsModel.updateOne({ _id: id }, obj);
-    return result;
+    if(result){
+      return result;
+    } else{
+      CustomError.generateError(ErrorsMessages.PRODUCT_NOT_FOUNT,500,ErrorsMessages.PRODUCT_NOT_FOUNT)
+    }
   }
 
   async delete(id) {
     const result = await productsModel.deleteOne({ _id: id });
-    return result;
+    if(result){
+      return result;
+    } else{
+      CustomError.generateError(ErrorsMessages.PRODUCT_NOT_FOUNT,500,ErrorsMessages.PRODUCT_NOT_FOUNT)
+    }
   }
 }
 

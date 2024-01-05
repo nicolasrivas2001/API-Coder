@@ -1,3 +1,5 @@
+import CustomError from "../../errors/error.generator.js";
+import { ErrorsMessages } from "../../errors/errors.enum.js";
 import { usersModel } from "../models/users.model.js";
 
 export default class UsersManager {
@@ -26,13 +28,21 @@ export default class UsersManager {
 
   async findById(id) {
     const response = await usersModel.findById(id);
-    return response;
+    if(response){
+      return response;
+    } else{
+      CustomError.generateError(ErrorsMessages.USER_NOT_FOUND,500,ErrorsMessages.USER_NOT_FOUND)
+    }
   }
 
   async findByEmail(email) {
     const response = await usersModel
       .findOne({ email });
-    return response;
+      if(response){
+        return response;
+      } else{
+        CustomError.generateError(ErrorsMessages.USER_NOT_FOUND,500,ErrorsMessages.USER_NOT_FOUND)
+      }
   }
 
   async create(obj) {
@@ -42,12 +52,20 @@ export default class UsersManager {
 
   async update(id, obj) {
     const response = await usersModel.updateOne({ _id: id }, obj);
-    return response;
+    if(response){
+      return response;
+    } else{
+      CustomError.generateError(ErrorsMessages.USER_NOT_FOUND,500,ErrorsMessages.USER_NOT_FOUND)
+    }
   }
 
   async delete(id) {
     const response = await usersModel.deleteOne({ _id: id });
-    return response;
+    if(response){
+      return response;
+    } else{
+      CustomError.generateError(ErrorsMessages.USER_NOT_FOUND,500,ErrorsMessages.USER_NOT_FOUND)
+    }
   }
 }
 
