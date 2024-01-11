@@ -1,5 +1,6 @@
 import ProductsRepository from "../repository/products.repository.js"
 import ProductsMongo from "../dao/mongo/products.mongo.js"
+import { logger } from "../logger.js";
 
 const productService = new ProductsRepository(new ProductsMongo())
 
@@ -26,7 +27,7 @@ export const updateById = async (req, res) => {
     try {
       const {pid} = req.params
       const data = req.body
-      console.log(data,pid)
+      logger.info(data,pid)
       const product = await productService.updateProduct(pid,data);
       res.status(200).json({ product });
     } catch (error) {

@@ -1,0 +1,40 @@
+{
+  message: 'Logger fatal',
+  level: 'fatal',
+  timestamp: '2024-01-10T23:46:13.302Z'
+}
+{
+  message: 'Logger error',
+  level: 'error',
+  timestamp: '2024-01-10T23:46:13.308Z'
+}
+{
+  message: 'Logger warning',
+  level: 'error',
+  timestamp: '2024-01-10T23:46:13.308Z'
+}
+{
+  message: 'Logger info',
+  level: 'error',
+  timestamp: '2024-01-10T23:46:13.309Z'
+}
+{
+  message: 'Logger http',
+  level: 'error',
+  timestamp: '2024-01-10T23:46:13.310Z'
+}
+{
+  message: 'Logger debug',
+  level: 'error',
+  timestamp: '2024-01-10T23:46:13.310Z'
+}
+{
+  message: 'Logger fatal',
+  level: 'fatal',
+  timestamp: '2024-01-10T23:47:21.182Z'
+}
+{
+  message: 'Logger error',
+  level: 'error',
+  timestamp: '2024-01-10T23:47:21.187Z'
+}

@@ -1,5 +1,6 @@
 import UsersRepository from "../repository/users.repository.js"
 import UsersMongo from "../dao/mongo/users.mongo.js"
+import { logger } from "../logger.js"
 
 const userService = new UsersRepository(new UsersMongo())
 
@@ -31,7 +32,7 @@ export const findUserById = async(req,res) => {
         }
         return res.status(200).json({message:"User found",user})
     } catch (error) {
-        console.log(error)
+        logger.error(error)
         return res.status(500).json({ error });
       }
 }
@@ -57,7 +58,7 @@ export const createUser = async(req,res) => {
     //res.status(200).json({ message: "User created", user: createdUser });
     res.status(200).json({response:createdUser});
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     return res.status(500).json({ error });
   }
 }

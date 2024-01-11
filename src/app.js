@@ -7,6 +7,7 @@ import cartsRouter from "./routes/cart.router.js"
 import usersRouter from "./routes/users.router.js"
 import sessionsRouter from "./routes/sessions.router.js"
 import messagesRouter from "./routes/messages.router.js"
+import loggerRouter from "./routes/logger.router.js"
 import moockingProductsRouter from "./routes/mocking.routes.js"
 import { productsManager } from "./dao//mongo/products.mongo.js";
 import session from "express-session";
@@ -51,6 +52,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/sessions", sessionsRouter);
 app.use("/api/messages", messagesRouter);
 app.use("/api/mockingproducts", moockingProductsRouter);
+app.use("/api/loggerTest", loggerRouter);
 
 app.use(errorMiddleware)
 

@@ -6,6 +6,7 @@ export const findAllMessage = async (req, res) => {
       const messages = await messagesManager.get();
       res.status(200).json({ messages });
     } catch (error) {
+      logger.error(error)
       return res.status(500).json({ error });
     }
 }
@@ -16,6 +17,7 @@ export const createMessage = async (req, res) => {
       const messages = await messagesManager.create(message);
       res.status(200).json({ messages });
     } catch (error) {
+      logger.error(error)
       return res.status(500).json({ error });
     }
 }
