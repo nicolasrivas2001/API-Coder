@@ -29,7 +29,7 @@ router.post("/login",passport.authenticate("login"), async(req,res)=>{
 //github
 
 router.get("/auth/github",
-    passport.authenticate("github", {scope: ["user.email"]})
+    passport.authenticate("github", {scope: ["user:email"]})
 )
 
 router.get("/callback",
