@@ -2,7 +2,7 @@ import passport from "passport";
 import { usersManager } from "./dao/mongo/users.mongo.js";
 import { Strategy as GithubStrategy } from "passport-github2";
 import { Strategy as LocalStrategy} from "passport-local"
-import { hashData, compareData} from "./utils.js";
+import { hashData, compareData} from "./utils/utils.js";
 import { ExtractJwt, Strategy as JWTStrategy } from "passport-jwt";
 import config from "./config.js";
 
@@ -76,10 +76,11 @@ passport.use("login", new LocalStrategy({usernameField:"email"}, async (email,pa
 passport.use("github", new GithubStrategy({
     clientID:"Iv1.c748f46a6f06769d",
     clientSecret: "d51347c54a2e0b3aa2b025ef296957770757c3b3",
-    callbackURL:"http://localhost:8080/api/sessions/callback"
+    callbackURL:"http://localhost:8080/api/sessions/callback",
+    scope: ["user: email"]
 }, async(accessToke, refreshToken, profile, done) => {
     try{
-        console.log(profile)
+        console.log("profile",profile)
         const userDB = await usersManager.findByEmail(profile._json.email)
         console.log(userDB)
         if(userDB){
@@ -89,9 +90,12 @@ passport.use("github", new GithubStrategy({
                 return done(null,false)
             }
         }
+        const fullname = profile._json.name.split(" ")
+        let name = fullname.length > 0 ? fullname[0] : "Jhon";
+        // let lastname = fullname.length > 1 ? fullname[1] : "Doe";
+
         const infoUser = {
-            first_name:profile._json.name.split(" ")[0],
-            last_name:profile._json.name.split(" ")[1],
+            first_name:profile._json.name,
             email:profile._json.email,
             password:" ",
             isGithub: true

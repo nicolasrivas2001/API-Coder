@@ -1,6 +1,6 @@
 import express from "express";
 import { engine } from "express-handlebars";
-import { __dirname } from "./utils.js";
+import { __dirname } from "./utils/utils.js";
 import viewsRouter from "./routes/views.router.js";
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/cart.router.js"
@@ -19,6 +19,8 @@ import passport from "passport";
 import "./passport.js"
 import config from "./config.js"
 import { errorMiddleware } from "./middlewars/errors.middlewars.js";
+import { swaggerSetup } from "./utils/swagger.js";
+import swaggerUi from "swagger-ui-express";
 
 
 const URI = config.mongo_uri
@@ -53,6 +55,7 @@ app.use("/api/sessions", sessionsRouter);
 app.use("/api/messages", messagesRouter);
 app.use("/api/mockingproducts", moockingProductsRouter);
 app.use("/api/loggerTest", loggerRouter);
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 
 app.use(errorMiddleware)
 

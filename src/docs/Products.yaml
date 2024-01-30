@@ -1,0 +1,116 @@
+paths:
+  /api/products:
+    get:
+      summary: Get all products
+      tags:
+        - Products
+      responses:
+        "200":
+          description: All products
+        "500":
+          description: Server Error
+        "400":
+          description: Some data is missing
+    post:
+      summary: Create Product
+      tags:
+        - Products
+      requestBody:
+        description: Product data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        "200":
+          description: Product created successfully
+        "500":
+          description: Server Error
+        "400":
+          description: Some data is missing
+  /api/products/{id}:
+    get:
+      summary: Get product by id
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          description: Product identifier
+      responses:
+        "200":
+          description: Product found
+          content:
+            application/json:
+              example:
+                id: 34t3rg345345g
+                title: Remera
+                description: Blanca
+                code: 345346
+                price: 34
+                tock: 45
+                thumbnails: thumbnails
+                status: true
+        "500":
+          description: Server Error
+        "400":
+          description: Some data is missing
+    put:
+      summary: Update product by id
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          description: Product identifier
+      responses:
+        "200":
+          description: Product updated successfully
+        "500":
+          description: Server Error
+        "400":
+          description: Some data is missing
+    delete:
+      summary: Delete product by id
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          description: Product identifier
+      responses:
+        "200":
+          description: Product deleted successfully
+        "500":
+          description: Server Error
+        "400":
+          description: Some data is missing
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        code:
+          type: string
+        price:
+          type: number
+        stock:
+          type: number
+        thumbnails:
+          type: string
+        status:
+          type: boolean
+      example:
+        title: Remera
+        description: Blanca
+        code: "3464564"
+        price: 34
+        stock: 23
+        thumbnails: thumbnailExample
+        status: true

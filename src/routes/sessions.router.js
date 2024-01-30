@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { generateToken } from "../utils.js";
+import { generateToken } from "../utils/utils.js";
 import passport from "passport";
 import UserResponse from "../dto/users-response.dto.js"
 import {usersManager} from "../dao/mongo/users.mongo.js";
