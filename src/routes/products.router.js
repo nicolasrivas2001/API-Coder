@@ -9,10 +9,10 @@ router.get("/", findAll);
   
 router.get("/:pid", findById);
 
-router.put("/:pid", passport.authenticate("jwt", {session: false}), authMiddleware(["Admin"]), updateById);
+router.put("/:pid", /*passport.authenticate("jwt", {session: false}), authMiddleware(["Admin"]),*/ updateById);
 
-router.post("/", passport.authenticate("jwt", {session: false}), authMiddleware(["Admin"]), createProduct);
+router.post("/", /*passport.authenticate("jwt", {session: false}), authMiddleware(["Admin"]),*/ createProduct);
   
-router.delete("/:idProduct", passport.authenticate("jwt", {session: false}), authMiddleware(["Admin"]), deleteProduct);
+router.delete("/:idProduct",/* passport.authenticate("jwt", {session: false}), authMiddleware(["Admin"]),*/ deleteProduct);
   
 export default router;
